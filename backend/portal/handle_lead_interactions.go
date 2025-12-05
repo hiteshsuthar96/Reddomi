@@ -12,10 +12,15 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (p *Portal) UpdateLeadInteractionComment(ctx context.Context, c *connect.Request[pbportal.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
+func (p *Portal) UpdateLeadInteraction(ctx context.Context, c *connect.Request[pbportal.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
 	actor, err := p.gethAuthContext(ctx)
 	if err != nil {
 		return nil, err
+	}
+
+	// alteast one of comment or status should be provided
+	if c.Msg.Comment == "" && c.Msg.Dm == "" {
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("at least one of comment or dm to edit should be provided"))
 	}
 
 	project, err := p.getProject(ctx, c.Header(), actor.OrganizationID)
@@ -37,7 +42,12 @@ func (p *Portal) UpdateLeadInteractionComment(ctx context.Context, c *connect.Re
 		return connect.NewResponse(&emptypb.Empty{}), nil
 	}
 
-	lead.LeadMetadata.SuggestedComment = c.Msg.Comment
+	if c.Msg.Comment != "" {
+		lead.LeadMetadata.SuggestedComment = c.Msg.Comment
+	}
+	if c.Msg.Dm != "" {
+		lead.LeadMetadata.SuggestedDM = c.Msg.Dm
+	}
 
 	if err := p.db.UpdateLeadStatus(ctx, lead); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("unable to update lead status: %w", err))

@@ -35,7 +35,7 @@ service PortalService {
   rpc GetRelevantLeads(GetRelevantLeadsRequest) returns (GetLeadsResponse);
   rpc UpdateLeadStatus(UpdateLeadStatusRequest) returns (.google.protobuf.Empty);
   rpc UpdateLeadInteractionStatus(UpdateLeadInteractionRequest) returns (.google.protobuf.Empty);
-  rpc UpdateLeadInteractionComment(UpdateLeadInteractionRequest) returns (.google.protobuf.Empty);
+  rpc UpdateLeadInteraction(UpdateLeadInteractionRequest) returns (.google.protobuf.Empty);
   rpc CreateOrEditProject(CreateProjectRequest) returns (doota.core.v1.Project);
   rpc SuggestKeywordsAndSources(.google.protobuf.Empty) returns (doota.core.v1.Project);
   rpc UpdateAutomationSettings(UpdateAutomationSettingRequest) returns (Organization);
@@ -124,6 +124,7 @@ message UpdateLeadInteractionRequest {
   doota.core.v1.LeadInteractionStatus status = 1;
   string interaction_id = 2;
   string comment = 3;
+  string dm = 4;
 }
 
 message UpdateLeadStatusRequest {

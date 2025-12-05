@@ -290,6 +290,11 @@ export declare type UpdateLeadInteractionRequest = Message<"doota.portal.v1.Upda
    * @generated from field: string comment = 3;
    */
   comment: string;
+
+  /**
+   * @generated from field: string dm = 4;
+   */
+  dm: string;
 };
 
 /**
@@ -1527,9 +1532,9 @@ export declare const PortalService: GenService<{
     output: typeof EmptySchema;
   },
   /**
-   * @generated from rpc doota.portal.v1.PortalService.UpdateLeadInteractionComment
+   * @generated from rpc doota.portal.v1.PortalService.UpdateLeadInteraction
    */
-  updateLeadInteractionComment: {
+  updateLeadInteraction: {
     methodKind: "unary";
     input: typeof UpdateLeadInteractionRequestSchema;
     output: typeof EmptySchema;
