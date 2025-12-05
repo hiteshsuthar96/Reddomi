@@ -21,40 +21,41 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PortalService_GetConfig_FullMethodName                   = "/doota.portal.v1.PortalService/GetConfig"
-	PortalService_Self_FullMethodName                        = "/doota.portal.v1.PortalService/Self"
-	PortalService_GetIntegration_FullMethodName              = "/doota.portal.v1.PortalService/GetIntegration"
-	PortalService_RevokeIntegration_FullMethodName           = "/doota.portal.v1.PortalService/RevokeIntegration"
-	PortalService_UpdateIntegration_FullMethodName           = "/doota.portal.v1.PortalService/UpdateIntegration"
-	PortalService_Batch_FullMethodName                       = "/doota.portal.v1.PortalService/Batch"
-	PortalService_CreateCustomerCase_FullMethodName          = "/doota.portal.v1.PortalService/CreateCustomerCase"
-	PortalService_PasswordlessStart_FullMethodName           = "/doota.portal.v1.PortalService/PasswordlessStart"
-	PortalService_PasswordlessVerify_FullMethodName          = "/doota.portal.v1.PortalService/PasswordlessVerify"
-	PortalService_OauthAuthorize_FullMethodName              = "/doota.portal.v1.PortalService/OauthAuthorize"
-	PortalService_OauthCallback_FullMethodName               = "/doota.portal.v1.PortalService/OauthCallback"
-	PortalService_SocialLoginCallback_FullMethodName         = "/doota.portal.v1.PortalService/SocialLoginCallback"
-	PortalService_GetIntegrations_FullMethodName             = "/doota.portal.v1.PortalService/GetIntegrations"
-	PortalService_CreateKeywords_FullMethodName              = "/doota.portal.v1.PortalService/CreateKeywords"
-	PortalService_AddSource_FullMethodName                   = "/doota.portal.v1.PortalService/AddSource"
-	PortalService_GetSources_FullMethodName                  = "/doota.portal.v1.PortalService/GetSources"
-	PortalService_RemoveSource_FullMethodName                = "/doota.portal.v1.PortalService/RemoveSource"
-	PortalService_GetRelevantLeads_FullMethodName            = "/doota.portal.v1.PortalService/GetRelevantLeads"
-	PortalService_UpdateLeadStatus_FullMethodName            = "/doota.portal.v1.PortalService/UpdateLeadStatus"
-	PortalService_UpdateLeadInteractionStatus_FullMethodName = "/doota.portal.v1.PortalService/UpdateLeadInteractionStatus"
-	PortalService_CreateOrEditProject_FullMethodName         = "/doota.portal.v1.PortalService/CreateOrEditProject"
-	PortalService_SuggestKeywordsAndSources_FullMethodName   = "/doota.portal.v1.PortalService/SuggestKeywordsAndSources"
-	PortalService_UpdateAutomationSettings_FullMethodName    = "/doota.portal.v1.PortalService/UpdateAutomationSettings"
-	PortalService_ConnectReddit_FullMethodName               = "/doota.portal.v1.PortalService/ConnectReddit"
-	PortalService_GetLeadInteractions_FullMethodName         = "/doota.portal.v1.PortalService/GetLeadInteractions"
-	PortalService_InitiateSubscription_FullMethodName        = "/doota.portal.v1.PortalService/InitiateSubscription"
-	PortalService_VerifySubscription_FullMethodName          = "/doota.portal.v1.PortalService/VerifySubscription"
-	PortalService_UpgradeSubscription_FullMethodName         = "/doota.portal.v1.PortalService/UpgradeSubscription"
-	PortalService_CancelSubscription_FullMethodName          = "/doota.portal.v1.PortalService/CancelSubscription"
-	PortalService_GetInsights_FullMethodName                 = "/doota.portal.v1.PortalService/GetInsights"
-	PortalService_CreatePost_FullMethodName                  = "/doota.portal.v1.PortalService/CreatePost"
-	PortalService_GetPosts_FullMethodName                    = "/doota.portal.v1.PortalService/GetPosts"
-	PortalService_UpdatePost_FullMethodName                  = "/doota.portal.v1.PortalService/UpdatePost"
-	PortalService_DeletePost_FullMethodName                  = "/doota.portal.v1.PortalService/DeletePost"
+	PortalService_GetConfig_FullMethodName                    = "/doota.portal.v1.PortalService/GetConfig"
+	PortalService_Self_FullMethodName                         = "/doota.portal.v1.PortalService/Self"
+	PortalService_GetIntegration_FullMethodName               = "/doota.portal.v1.PortalService/GetIntegration"
+	PortalService_RevokeIntegration_FullMethodName            = "/doota.portal.v1.PortalService/RevokeIntegration"
+	PortalService_UpdateIntegration_FullMethodName            = "/doota.portal.v1.PortalService/UpdateIntegration"
+	PortalService_Batch_FullMethodName                        = "/doota.portal.v1.PortalService/Batch"
+	PortalService_CreateCustomerCase_FullMethodName           = "/doota.portal.v1.PortalService/CreateCustomerCase"
+	PortalService_PasswordlessStart_FullMethodName            = "/doota.portal.v1.PortalService/PasswordlessStart"
+	PortalService_PasswordlessVerify_FullMethodName           = "/doota.portal.v1.PortalService/PasswordlessVerify"
+	PortalService_OauthAuthorize_FullMethodName               = "/doota.portal.v1.PortalService/OauthAuthorize"
+	PortalService_OauthCallback_FullMethodName                = "/doota.portal.v1.PortalService/OauthCallback"
+	PortalService_SocialLoginCallback_FullMethodName          = "/doota.portal.v1.PortalService/SocialLoginCallback"
+	PortalService_GetIntegrations_FullMethodName              = "/doota.portal.v1.PortalService/GetIntegrations"
+	PortalService_CreateKeywords_FullMethodName               = "/doota.portal.v1.PortalService/CreateKeywords"
+	PortalService_AddSource_FullMethodName                    = "/doota.portal.v1.PortalService/AddSource"
+	PortalService_GetSources_FullMethodName                   = "/doota.portal.v1.PortalService/GetSources"
+	PortalService_RemoveSource_FullMethodName                 = "/doota.portal.v1.PortalService/RemoveSource"
+	PortalService_GetRelevantLeads_FullMethodName             = "/doota.portal.v1.PortalService/GetRelevantLeads"
+	PortalService_UpdateLeadStatus_FullMethodName             = "/doota.portal.v1.PortalService/UpdateLeadStatus"
+	PortalService_UpdateLeadInteractionStatus_FullMethodName  = "/doota.portal.v1.PortalService/UpdateLeadInteractionStatus"
+	PortalService_UpdateLeadInteractionComment_FullMethodName = "/doota.portal.v1.PortalService/UpdateLeadInteractionComment"
+	PortalService_CreateOrEditProject_FullMethodName          = "/doota.portal.v1.PortalService/CreateOrEditProject"
+	PortalService_SuggestKeywordsAndSources_FullMethodName    = "/doota.portal.v1.PortalService/SuggestKeywordsAndSources"
+	PortalService_UpdateAutomationSettings_FullMethodName     = "/doota.portal.v1.PortalService/UpdateAutomationSettings"
+	PortalService_ConnectReddit_FullMethodName                = "/doota.portal.v1.PortalService/ConnectReddit"
+	PortalService_GetLeadInteractions_FullMethodName          = "/doota.portal.v1.PortalService/GetLeadInteractions"
+	PortalService_InitiateSubscription_FullMethodName         = "/doota.portal.v1.PortalService/InitiateSubscription"
+	PortalService_VerifySubscription_FullMethodName           = "/doota.portal.v1.PortalService/VerifySubscription"
+	PortalService_UpgradeSubscription_FullMethodName          = "/doota.portal.v1.PortalService/UpgradeSubscription"
+	PortalService_CancelSubscription_FullMethodName           = "/doota.portal.v1.PortalService/CancelSubscription"
+	PortalService_GetInsights_FullMethodName                  = "/doota.portal.v1.PortalService/GetInsights"
+	PortalService_CreatePost_FullMethodName                   = "/doota.portal.v1.PortalService/CreatePost"
+	PortalService_GetPosts_FullMethodName                     = "/doota.portal.v1.PortalService/GetPosts"
+	PortalService_UpdatePost_FullMethodName                   = "/doota.portal.v1.PortalService/UpdatePost"
+	PortalService_DeletePost_FullMethodName                   = "/doota.portal.v1.PortalService/DeletePost"
 )
 
 // PortalServiceClient is the client API for PortalService service.
@@ -83,7 +84,8 @@ type PortalServiceClient interface {
 	RemoveSource(ctx context.Context, in *RemoveSourceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetRelevantLeads(ctx context.Context, in *GetRelevantLeadsRequest, opts ...grpc.CallOption) (*GetLeadsResponse, error)
 	UpdateLeadStatus(ctx context.Context, in *UpdateLeadStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	UpdateLeadInteractionStatus(ctx context.Context, in *UpdateLeadInteractionStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateLeadInteractionStatus(ctx context.Context, in *UpdateLeadInteractionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateLeadInteractionComment(ctx context.Context, in *UpdateLeadInteractionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CreateOrEditProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*v1.Project, error)
 	SuggestKeywordsAndSources(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.Project, error)
 	UpdateAutomationSettings(ctx context.Context, in *UpdateAutomationSettingRequest, opts ...grpc.CallOption) (*Organization, error)
@@ -282,9 +284,18 @@ func (c *portalServiceClient) UpdateLeadStatus(ctx context.Context, in *UpdateLe
 	return out, nil
 }
 
-func (c *portalServiceClient) UpdateLeadInteractionStatus(ctx context.Context, in *UpdateLeadInteractionStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *portalServiceClient) UpdateLeadInteractionStatus(ctx context.Context, in *UpdateLeadInteractionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, PortalService_UpdateLeadInteractionStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *portalServiceClient) UpdateLeadInteractionComment(ctx context.Context, in *UpdateLeadInteractionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, PortalService_UpdateLeadInteractionComment_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -466,7 +477,8 @@ type PortalServiceServer interface {
 	RemoveSource(context.Context, *RemoveSourceRequest) (*emptypb.Empty, error)
 	GetRelevantLeads(context.Context, *GetRelevantLeadsRequest) (*GetLeadsResponse, error)
 	UpdateLeadStatus(context.Context, *UpdateLeadStatusRequest) (*emptypb.Empty, error)
-	UpdateLeadInteractionStatus(context.Context, *UpdateLeadInteractionStatusRequest) (*emptypb.Empty, error)
+	UpdateLeadInteractionStatus(context.Context, *UpdateLeadInteractionRequest) (*emptypb.Empty, error)
+	UpdateLeadInteractionComment(context.Context, *UpdateLeadInteractionRequest) (*emptypb.Empty, error)
 	CreateOrEditProject(context.Context, *CreateProjectRequest) (*v1.Project, error)
 	SuggestKeywordsAndSources(context.Context, *emptypb.Empty) (*v1.Project, error)
 	UpdateAutomationSettings(context.Context, *UpdateAutomationSettingRequest) (*Organization, error)
@@ -548,8 +560,11 @@ func (UnimplementedPortalServiceServer) GetRelevantLeads(context.Context, *GetRe
 func (UnimplementedPortalServiceServer) UpdateLeadStatus(context.Context, *UpdateLeadStatusRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLeadStatus not implemented")
 }
-func (UnimplementedPortalServiceServer) UpdateLeadInteractionStatus(context.Context, *UpdateLeadInteractionStatusRequest) (*emptypb.Empty, error) {
+func (UnimplementedPortalServiceServer) UpdateLeadInteractionStatus(context.Context, *UpdateLeadInteractionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLeadInteractionStatus not implemented")
+}
+func (UnimplementedPortalServiceServer) UpdateLeadInteractionComment(context.Context, *UpdateLeadInteractionRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLeadInteractionComment not implemented")
 }
 func (UnimplementedPortalServiceServer) CreateOrEditProject(context.Context, *CreateProjectRequest) (*v1.Project, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrEditProject not implemented")
@@ -949,7 +964,7 @@ func _PortalService_UpdateLeadStatus_Handler(srv interface{}, ctx context.Contex
 }
 
 func _PortalService_UpdateLeadInteractionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateLeadInteractionStatusRequest)
+	in := new(UpdateLeadInteractionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -961,7 +976,25 @@ func _PortalService_UpdateLeadInteractionStatus_Handler(srv interface{}, ctx con
 		FullMethod: PortalService_UpdateLeadInteractionStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PortalServiceServer).UpdateLeadInteractionStatus(ctx, req.(*UpdateLeadInteractionStatusRequest))
+		return srv.(PortalServiceServer).UpdateLeadInteractionStatus(ctx, req.(*UpdateLeadInteractionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PortalService_UpdateLeadInteractionComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLeadInteractionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PortalServiceServer).UpdateLeadInteractionComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PortalService_UpdateLeadInteractionComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PortalServiceServer).UpdateLeadInteractionComment(ctx, req.(*UpdateLeadInteractionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1307,6 +1340,10 @@ var PortalService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateLeadInteractionStatus",
 			Handler:    _PortalService_UpdateLeadInteractionStatus_Handler,
+		},
+		{
+			MethodName: "UpdateLeadInteractionComment",
+			Handler:    _PortalService_UpdateLeadInteractionComment_Handler,
 		},
 		{
 			MethodName: "CreateOrEditProject",

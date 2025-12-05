@@ -187,29 +187,6 @@ func (p *Portal) CreateOrEditProject(ctx context.Context, c *connect.Request[pbp
 	return connect.NewResponse(projectProto), nil
 }
 
-func (p *Portal) GetLeadInteractions(ctx context.Context, c *connect.Request[pbportal.GetLeadInteractionsRequest]) (*connect.Response[pbportal.GetLeadInteractionsResponse], error) {
-	actor, err := p.gethAuthContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-	project, err := p.getProject(ctx, c.Header(), actor.OrganizationID)
-	if err != nil {
-		return nil, err
-	}
-
-	interactions, err := p.db.GetAugmentedLeadInteractions(ctx, project.ID, c.Msg.GetDateRange())
-	if err != nil {
-		return nil, err
-	}
-
-	leadProtos := make([]*pbcore.LeadInteraction, 0, len(interactions))
-	for _, interaction := range interactions {
-		leadProtos = append(leadProtos, new(pbcore.LeadInteraction).FromModel(interaction))
-	}
-
-	return connect.NewResponse(&pbportal.GetLeadInteractionsResponse{Interactions: leadProtos}), nil
-}
-
 func (p *Portal) SuggestKeywordsAndSources(ctx context.Context, c *connect.Request[emptypb.Empty]) (*connect.Response[pbcore.Project], error) {
 	actor, err := p.gethAuthContext(ctx)
 	if err != nil {
@@ -665,72 +642,6 @@ func (p *Portal) getLeadsByStatus(ctx context.Context, c *connect.Request[pbport
 	}
 
 	return connect.NewResponse(&pbportal.GetLeadsResponse{Leads: leadsProto, Analysis: analysis}), nil
-}
-
-func (p *Portal) UpdateLeadInteractionStatus(ctx context.Context, c *connect.Request[pbportal.UpdateLeadInteractionStatusRequest]) (*connect.Response[emptypb.Empty], error) {
-	actor, err := p.gethAuthContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	status := c.Msg.Status
-
-	// Only allow specific status updates
-	if status != pbcore.LeadInteractionStatus_LEAD_INTERACTION_STATUS_REMOVED &&
-		status != pbcore.LeadInteractionStatus_LEAD_INTERACTION_STATUS_CREATED {
-		return connect.NewResponse(&emptypb.Empty{}), nil
-	}
-
-	interaction, err := p.db.GetLeadInteractionByID(ctx, c.Msg.InteractionId)
-	if err != nil {
-		return nil, err
-	}
-
-	// Handle CREATED status only if the current status is FAILED
-	if status == pbcore.LeadInteractionStatus_LEAD_INTERACTION_STATUS_CREATED {
-		if interaction.Status != models.LeadInteractionStatusFAILED {
-			return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("interaction status is not failed, cannot retry"))
-		}
-
-		interaction.Status = status.ToModel()
-		if err := p.db.UpdateLeadInteraction(ctx, interaction); err != nil {
-			return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("failed to update interaction to CREATED: %w", err))
-		}
-
-		return connect.NewResponse(&emptypb.Empty{}), nil
-	}
-
-	// At this point, status must be REMOVED
-	project, err := p.getProject(ctx, c.Header(), actor.OrganizationID)
-	if err != nil {
-		return nil, err
-	}
-
-	lead, err := p.db.GetLeadByID(ctx, project.ID, interaction.LeadID)
-	if err != nil && !errors.Is(err, datastore.NotFound) {
-		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("unable to fetch lead: %w", err))
-	}
-
-	if lead == nil {
-		return connect.NewResponse(&emptypb.Empty{}), nil
-	}
-
-	interaction.Status = status.ToModel()
-	interaction.Reason = "Skipped, as user marked it as not relevant"
-
-	// Clear scheduled timestamps
-	lead.LeadMetadata.CommentScheduledAt = nil
-	lead.LeadMetadata.DMScheduledAt = nil
-
-	if err := p.db.UpdateLeadInteraction(ctx, interaction); err != nil {
-		return nil, err
-	}
-
-	if err := p.db.UpdateLeadStatus(ctx, lead); err != nil {
-		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("unable to update lead status: %w", err))
-	}
-
-	return connect.NewResponse(&emptypb.Empty{}), nil
 }
 
 func (p *Portal) UpdateLeadStatus(ctx context.Context, c *connect.Request[pbportal.UpdateLeadStatusRequest]) (*connect.Response[emptypb.Empty], error) {

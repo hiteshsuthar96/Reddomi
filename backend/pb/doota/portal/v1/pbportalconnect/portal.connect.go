@@ -91,6 +91,9 @@ const (
 	// PortalServiceUpdateLeadInteractionStatusProcedure is the fully-qualified name of the
 	// PortalService's UpdateLeadInteractionStatus RPC.
 	PortalServiceUpdateLeadInteractionStatusProcedure = "/doota.portal.v1.PortalService/UpdateLeadInteractionStatus"
+	// PortalServiceUpdateLeadInteractionCommentProcedure is the fully-qualified name of the
+	// PortalService's UpdateLeadInteractionComment RPC.
+	PortalServiceUpdateLeadInteractionCommentProcedure = "/doota.portal.v1.PortalService/UpdateLeadInteractionComment"
 	// PortalServiceCreateOrEditProjectProcedure is the fully-qualified name of the PortalService's
 	// CreateOrEditProject RPC.
 	PortalServiceCreateOrEditProjectProcedure = "/doota.portal.v1.PortalService/CreateOrEditProject"
@@ -136,41 +139,42 @@ const (
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
 var (
-	portalServiceServiceDescriptor                           = v1.File_doota_portal_v1_portal_proto.Services().ByName("PortalService")
-	portalServiceGetConfigMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("GetConfig")
-	portalServiceSelfMethodDescriptor                        = portalServiceServiceDescriptor.Methods().ByName("Self")
-	portalServiceGetIntegrationMethodDescriptor              = portalServiceServiceDescriptor.Methods().ByName("GetIntegration")
-	portalServiceRevokeIntegrationMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("RevokeIntegration")
-	portalServiceUpdateIntegrationMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("UpdateIntegration")
-	portalServiceBatchMethodDescriptor                       = portalServiceServiceDescriptor.Methods().ByName("Batch")
-	portalServiceCreateCustomerCaseMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("CreateCustomerCase")
-	portalServicePasswordlessStartMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("PasswordlessStart")
-	portalServicePasswordlessVerifyMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("PasswordlessVerify")
-	portalServiceOauthAuthorizeMethodDescriptor              = portalServiceServiceDescriptor.Methods().ByName("OauthAuthorize")
-	portalServiceOauthCallbackMethodDescriptor               = portalServiceServiceDescriptor.Methods().ByName("OauthCallback")
-	portalServiceSocialLoginCallbackMethodDescriptor         = portalServiceServiceDescriptor.Methods().ByName("SocialLoginCallback")
-	portalServiceGetIntegrationsMethodDescriptor             = portalServiceServiceDescriptor.Methods().ByName("GetIntegrations")
-	portalServiceCreateKeywordsMethodDescriptor              = portalServiceServiceDescriptor.Methods().ByName("CreateKeywords")
-	portalServiceAddSourceMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("AddSource")
-	portalServiceGetSourcesMethodDescriptor                  = portalServiceServiceDescriptor.Methods().ByName("GetSources")
-	portalServiceRemoveSourceMethodDescriptor                = portalServiceServiceDescriptor.Methods().ByName("RemoveSource")
-	portalServiceGetRelevantLeadsMethodDescriptor            = portalServiceServiceDescriptor.Methods().ByName("GetRelevantLeads")
-	portalServiceUpdateLeadStatusMethodDescriptor            = portalServiceServiceDescriptor.Methods().ByName("UpdateLeadStatus")
-	portalServiceUpdateLeadInteractionStatusMethodDescriptor = portalServiceServiceDescriptor.Methods().ByName("UpdateLeadInteractionStatus")
-	portalServiceCreateOrEditProjectMethodDescriptor         = portalServiceServiceDescriptor.Methods().ByName("CreateOrEditProject")
-	portalServiceSuggestKeywordsAndSourcesMethodDescriptor   = portalServiceServiceDescriptor.Methods().ByName("SuggestKeywordsAndSources")
-	portalServiceUpdateAutomationSettingsMethodDescriptor    = portalServiceServiceDescriptor.Methods().ByName("UpdateAutomationSettings")
-	portalServiceConnectRedditMethodDescriptor               = portalServiceServiceDescriptor.Methods().ByName("ConnectReddit")
-	portalServiceGetLeadInteractionsMethodDescriptor         = portalServiceServiceDescriptor.Methods().ByName("GetLeadInteractions")
-	portalServiceInitiateSubscriptionMethodDescriptor        = portalServiceServiceDescriptor.Methods().ByName("InitiateSubscription")
-	portalServiceVerifySubscriptionMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("VerifySubscription")
-	portalServiceUpgradeSubscriptionMethodDescriptor         = portalServiceServiceDescriptor.Methods().ByName("UpgradeSubscription")
-	portalServiceCancelSubscriptionMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("CancelSubscription")
-	portalServiceGetInsightsMethodDescriptor                 = portalServiceServiceDescriptor.Methods().ByName("GetInsights")
-	portalServiceCreatePostMethodDescriptor                  = portalServiceServiceDescriptor.Methods().ByName("CreatePost")
-	portalServiceGetPostsMethodDescriptor                    = portalServiceServiceDescriptor.Methods().ByName("GetPosts")
-	portalServiceUpdatePostMethodDescriptor                  = portalServiceServiceDescriptor.Methods().ByName("UpdatePost")
-	portalServiceDeletePostMethodDescriptor                  = portalServiceServiceDescriptor.Methods().ByName("DeletePost")
+	portalServiceServiceDescriptor                            = v1.File_doota_portal_v1_portal_proto.Services().ByName("PortalService")
+	portalServiceGetConfigMethodDescriptor                    = portalServiceServiceDescriptor.Methods().ByName("GetConfig")
+	portalServiceSelfMethodDescriptor                         = portalServiceServiceDescriptor.Methods().ByName("Self")
+	portalServiceGetIntegrationMethodDescriptor               = portalServiceServiceDescriptor.Methods().ByName("GetIntegration")
+	portalServiceRevokeIntegrationMethodDescriptor            = portalServiceServiceDescriptor.Methods().ByName("RevokeIntegration")
+	portalServiceUpdateIntegrationMethodDescriptor            = portalServiceServiceDescriptor.Methods().ByName("UpdateIntegration")
+	portalServiceBatchMethodDescriptor                        = portalServiceServiceDescriptor.Methods().ByName("Batch")
+	portalServiceCreateCustomerCaseMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("CreateCustomerCase")
+	portalServicePasswordlessStartMethodDescriptor            = portalServiceServiceDescriptor.Methods().ByName("PasswordlessStart")
+	portalServicePasswordlessVerifyMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("PasswordlessVerify")
+	portalServiceOauthAuthorizeMethodDescriptor               = portalServiceServiceDescriptor.Methods().ByName("OauthAuthorize")
+	portalServiceOauthCallbackMethodDescriptor                = portalServiceServiceDescriptor.Methods().ByName("OauthCallback")
+	portalServiceSocialLoginCallbackMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("SocialLoginCallback")
+	portalServiceGetIntegrationsMethodDescriptor              = portalServiceServiceDescriptor.Methods().ByName("GetIntegrations")
+	portalServiceCreateKeywordsMethodDescriptor               = portalServiceServiceDescriptor.Methods().ByName("CreateKeywords")
+	portalServiceAddSourceMethodDescriptor                    = portalServiceServiceDescriptor.Methods().ByName("AddSource")
+	portalServiceGetSourcesMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("GetSources")
+	portalServiceRemoveSourceMethodDescriptor                 = portalServiceServiceDescriptor.Methods().ByName("RemoveSource")
+	portalServiceGetRelevantLeadsMethodDescriptor             = portalServiceServiceDescriptor.Methods().ByName("GetRelevantLeads")
+	portalServiceUpdateLeadStatusMethodDescriptor             = portalServiceServiceDescriptor.Methods().ByName("UpdateLeadStatus")
+	portalServiceUpdateLeadInteractionStatusMethodDescriptor  = portalServiceServiceDescriptor.Methods().ByName("UpdateLeadInteractionStatus")
+	portalServiceUpdateLeadInteractionCommentMethodDescriptor = portalServiceServiceDescriptor.Methods().ByName("UpdateLeadInteractionComment")
+	portalServiceCreateOrEditProjectMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("CreateOrEditProject")
+	portalServiceSuggestKeywordsAndSourcesMethodDescriptor    = portalServiceServiceDescriptor.Methods().ByName("SuggestKeywordsAndSources")
+	portalServiceUpdateAutomationSettingsMethodDescriptor     = portalServiceServiceDescriptor.Methods().ByName("UpdateAutomationSettings")
+	portalServiceConnectRedditMethodDescriptor                = portalServiceServiceDescriptor.Methods().ByName("ConnectReddit")
+	portalServiceGetLeadInteractionsMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("GetLeadInteractions")
+	portalServiceInitiateSubscriptionMethodDescriptor         = portalServiceServiceDescriptor.Methods().ByName("InitiateSubscription")
+	portalServiceVerifySubscriptionMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("VerifySubscription")
+	portalServiceUpgradeSubscriptionMethodDescriptor          = portalServiceServiceDescriptor.Methods().ByName("UpgradeSubscription")
+	portalServiceCancelSubscriptionMethodDescriptor           = portalServiceServiceDescriptor.Methods().ByName("CancelSubscription")
+	portalServiceGetInsightsMethodDescriptor                  = portalServiceServiceDescriptor.Methods().ByName("GetInsights")
+	portalServiceCreatePostMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("CreatePost")
+	portalServiceGetPostsMethodDescriptor                     = portalServiceServiceDescriptor.Methods().ByName("GetPosts")
+	portalServiceUpdatePostMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("UpdatePost")
+	portalServiceDeletePostMethodDescriptor                   = portalServiceServiceDescriptor.Methods().ByName("DeletePost")
 )
 
 // PortalServiceClient is a client for the doota.portal.v1.PortalService service.
@@ -197,7 +201,8 @@ type PortalServiceClient interface {
 	RemoveSource(context.Context, *connect.Request[v1.RemoveSourceRequest]) (*connect.Response[emptypb.Empty], error)
 	GetRelevantLeads(context.Context, *connect.Request[v1.GetRelevantLeadsRequest]) (*connect.Response[v1.GetLeadsResponse], error)
 	UpdateLeadStatus(context.Context, *connect.Request[v1.UpdateLeadStatusRequest]) (*connect.Response[emptypb.Empty], error)
-	UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionStatusRequest]) (*connect.Response[emptypb.Empty], error)
+	UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error)
+	UpdateLeadInteractionComment(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error)
 	CreateOrEditProject(context.Context, *connect.Request[v1.CreateProjectRequest]) (*connect.Response[v11.Project], error)
 	SuggestKeywordsAndSources(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v11.Project], error)
 	UpdateAutomationSettings(context.Context, *connect.Request[v1.UpdateAutomationSettingRequest]) (*connect.Response[v1.Organization], error)
@@ -341,10 +346,16 @@ func NewPortalServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(portalServiceUpdateLeadStatusMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
-		updateLeadInteractionStatus: connect.NewClient[v1.UpdateLeadInteractionStatusRequest, emptypb.Empty](
+		updateLeadInteractionStatus: connect.NewClient[v1.UpdateLeadInteractionRequest, emptypb.Empty](
 			httpClient,
 			baseURL+PortalServiceUpdateLeadInteractionStatusProcedure,
 			connect.WithSchema(portalServiceUpdateLeadInteractionStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
+		updateLeadInteractionComment: connect.NewClient[v1.UpdateLeadInteractionRequest, emptypb.Empty](
+			httpClient,
+			baseURL+PortalServiceUpdateLeadInteractionCommentProcedure,
+			connect.WithSchema(portalServiceUpdateLeadInteractionCommentMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
 		createOrEditProject: connect.NewClient[v1.CreateProjectRequest, v11.Project](
@@ -436,40 +447,41 @@ func NewPortalServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 
 // portalServiceClient implements PortalServiceClient.
 type portalServiceClient struct {
-	getConfig                   *connect.Client[emptypb.Empty, v1.Config]
-	self                        *connect.Client[emptypb.Empty, v1.User]
-	getIntegration              *connect.Client[v1.GetIntegrationRequest, v1.Integrations]
-	revokeIntegration           *connect.Client[v1.RevokeIntegrationRequest, emptypb.Empty]
-	updateIntegration           *connect.Client[v1.UpdateIntegrationRequest, emptypb.Empty]
-	batch                       *connect.Client[v1.BatchReq, v1.BatchResp]
-	createCustomerCase          *connect.Client[v1.CreateCustomerCaseReq, emptypb.Empty]
-	passwordlessStart           *connect.Client[v1.PasswordlessStartRequest, emptypb.Empty]
-	passwordlessVerify          *connect.Client[v1.PasswordlessStartVerify, v1.JWT]
-	oauthAuthorize              *connect.Client[v1.OauthAuthorizeRequest, v1.OauthAuthorizeResponse]
-	oauthCallback               *connect.Client[v1.OauthCallbackRequest, v1.OauthCallbackResponse]
-	socialLoginCallback         *connect.Client[v1.OauthCallbackRequest, v1.JWT]
-	getIntegrations             *connect.Client[emptypb.Empty, v1.Integrations]
-	createKeywords              *connect.Client[v1.CreateKeywordReq, v1.CreateKeywordsRes]
-	addSource                   *connect.Client[v1.AddSourceRequest, v11.Source]
-	getSources                  *connect.Client[emptypb.Empty, v1.GetSourceResponse]
-	removeSource                *connect.Client[v1.RemoveSourceRequest, emptypb.Empty]
-	getRelevantLeads            *connect.Client[v1.GetRelevantLeadsRequest, v1.GetLeadsResponse]
-	updateLeadStatus            *connect.Client[v1.UpdateLeadStatusRequest, emptypb.Empty]
-	updateLeadInteractionStatus *connect.Client[v1.UpdateLeadInteractionStatusRequest, emptypb.Empty]
-	createOrEditProject         *connect.Client[v1.CreateProjectRequest, v11.Project]
-	suggestKeywordsAndSources   *connect.Client[emptypb.Empty, v11.Project]
-	updateAutomationSettings    *connect.Client[v1.UpdateAutomationSettingRequest, v1.Organization]
-	connectReddit               *connect.Client[v1.ConnectRedditRequest, v1.ConnectRedditResponse]
-	getLeadInteractions         *connect.Client[v1.GetLeadInteractionsRequest, v1.GetLeadInteractionsResponse]
-	initiateSubscription        *connect.Client[v1.InitiateSubscriptionRequest, v1.InitiateSubscriptionResponse]
-	verifySubscription          *connect.Client[v1.VerifySubscriptionRequest, v11.Subscription]
-	upgradeSubscription         *connect.Client[v1.UpgradeSubscriptionRequest, v11.Subscription]
-	cancelSubscription          *connect.Client[emptypb.Empty, v11.Subscription]
-	getInsights                 *connect.Client[emptypb.Empty, v1.InsightsResponse]
-	createPost                  *connect.Client[v11.PostSettings, v11.Post]
-	getPosts                    *connect.Client[emptypb.Empty, v1.GetPostsResponse]
-	updatePost                  *connect.Client[v11.UpdatePostRequest, v11.Post]
-	deletePost                  *connect.Client[v11.DeletePostRequest, emptypb.Empty]
+	getConfig                    *connect.Client[emptypb.Empty, v1.Config]
+	self                         *connect.Client[emptypb.Empty, v1.User]
+	getIntegration               *connect.Client[v1.GetIntegrationRequest, v1.Integrations]
+	revokeIntegration            *connect.Client[v1.RevokeIntegrationRequest, emptypb.Empty]
+	updateIntegration            *connect.Client[v1.UpdateIntegrationRequest, emptypb.Empty]
+	batch                        *connect.Client[v1.BatchReq, v1.BatchResp]
+	createCustomerCase           *connect.Client[v1.CreateCustomerCaseReq, emptypb.Empty]
+	passwordlessStart            *connect.Client[v1.PasswordlessStartRequest, emptypb.Empty]
+	passwordlessVerify           *connect.Client[v1.PasswordlessStartVerify, v1.JWT]
+	oauthAuthorize               *connect.Client[v1.OauthAuthorizeRequest, v1.OauthAuthorizeResponse]
+	oauthCallback                *connect.Client[v1.OauthCallbackRequest, v1.OauthCallbackResponse]
+	socialLoginCallback          *connect.Client[v1.OauthCallbackRequest, v1.JWT]
+	getIntegrations              *connect.Client[emptypb.Empty, v1.Integrations]
+	createKeywords               *connect.Client[v1.CreateKeywordReq, v1.CreateKeywordsRes]
+	addSource                    *connect.Client[v1.AddSourceRequest, v11.Source]
+	getSources                   *connect.Client[emptypb.Empty, v1.GetSourceResponse]
+	removeSource                 *connect.Client[v1.RemoveSourceRequest, emptypb.Empty]
+	getRelevantLeads             *connect.Client[v1.GetRelevantLeadsRequest, v1.GetLeadsResponse]
+	updateLeadStatus             *connect.Client[v1.UpdateLeadStatusRequest, emptypb.Empty]
+	updateLeadInteractionStatus  *connect.Client[v1.UpdateLeadInteractionRequest, emptypb.Empty]
+	updateLeadInteractionComment *connect.Client[v1.UpdateLeadInteractionRequest, emptypb.Empty]
+	createOrEditProject          *connect.Client[v1.CreateProjectRequest, v11.Project]
+	suggestKeywordsAndSources    *connect.Client[emptypb.Empty, v11.Project]
+	updateAutomationSettings     *connect.Client[v1.UpdateAutomationSettingRequest, v1.Organization]
+	connectReddit                *connect.Client[v1.ConnectRedditRequest, v1.ConnectRedditResponse]
+	getLeadInteractions          *connect.Client[v1.GetLeadInteractionsRequest, v1.GetLeadInteractionsResponse]
+	initiateSubscription         *connect.Client[v1.InitiateSubscriptionRequest, v1.InitiateSubscriptionResponse]
+	verifySubscription           *connect.Client[v1.VerifySubscriptionRequest, v11.Subscription]
+	upgradeSubscription          *connect.Client[v1.UpgradeSubscriptionRequest, v11.Subscription]
+	cancelSubscription           *connect.Client[emptypb.Empty, v11.Subscription]
+	getInsights                  *connect.Client[emptypb.Empty, v1.InsightsResponse]
+	createPost                   *connect.Client[v11.PostSettings, v11.Post]
+	getPosts                     *connect.Client[emptypb.Empty, v1.GetPostsResponse]
+	updatePost                   *connect.Client[v11.UpdatePostRequest, v11.Post]
+	deletePost                   *connect.Client[v11.DeletePostRequest, emptypb.Empty]
 }
 
 // GetConfig calls doota.portal.v1.PortalService.GetConfig.
@@ -568,8 +580,13 @@ func (c *portalServiceClient) UpdateLeadStatus(ctx context.Context, req *connect
 }
 
 // UpdateLeadInteractionStatus calls doota.portal.v1.PortalService.UpdateLeadInteractionStatus.
-func (c *portalServiceClient) UpdateLeadInteractionStatus(ctx context.Context, req *connect.Request[v1.UpdateLeadInteractionStatusRequest]) (*connect.Response[emptypb.Empty], error) {
+func (c *portalServiceClient) UpdateLeadInteractionStatus(ctx context.Context, req *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
 	return c.updateLeadInteractionStatus.CallUnary(ctx, req)
+}
+
+// UpdateLeadInteractionComment calls doota.portal.v1.PortalService.UpdateLeadInteractionComment.
+func (c *portalServiceClient) UpdateLeadInteractionComment(ctx context.Context, req *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
+	return c.updateLeadInteractionComment.CallUnary(ctx, req)
 }
 
 // CreateOrEditProject calls doota.portal.v1.PortalService.CreateOrEditProject.
@@ -666,7 +683,8 @@ type PortalServiceHandler interface {
 	RemoveSource(context.Context, *connect.Request[v1.RemoveSourceRequest]) (*connect.Response[emptypb.Empty], error)
 	GetRelevantLeads(context.Context, *connect.Request[v1.GetRelevantLeadsRequest]) (*connect.Response[v1.GetLeadsResponse], error)
 	UpdateLeadStatus(context.Context, *connect.Request[v1.UpdateLeadStatusRequest]) (*connect.Response[emptypb.Empty], error)
-	UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionStatusRequest]) (*connect.Response[emptypb.Empty], error)
+	UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error)
+	UpdateLeadInteractionComment(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error)
 	CreateOrEditProject(context.Context, *connect.Request[v1.CreateProjectRequest]) (*connect.Response[v11.Project], error)
 	SuggestKeywordsAndSources(context.Context, *connect.Request[emptypb.Empty]) (*connect.Response[v11.Project], error)
 	UpdateAutomationSettings(context.Context, *connect.Request[v1.UpdateAutomationSettingRequest]) (*connect.Response[v1.Organization], error)
@@ -812,6 +830,12 @@ func NewPortalServiceHandler(svc PortalServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(portalServiceUpdateLeadInteractionStatusMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
+	portalServiceUpdateLeadInteractionCommentHandler := connect.NewUnaryHandler(
+		PortalServiceUpdateLeadInteractionCommentProcedure,
+		svc.UpdateLeadInteractionComment,
+		connect.WithSchema(portalServiceUpdateLeadInteractionCommentMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
 	portalServiceCreateOrEditProjectHandler := connect.NewUnaryHandler(
 		PortalServiceCreateOrEditProjectProcedure,
 		svc.CreateOrEditProject,
@@ -938,6 +962,8 @@ func NewPortalServiceHandler(svc PortalServiceHandler, opts ...connect.HandlerOp
 			portalServiceUpdateLeadStatusHandler.ServeHTTP(w, r)
 		case PortalServiceUpdateLeadInteractionStatusProcedure:
 			portalServiceUpdateLeadInteractionStatusHandler.ServeHTTP(w, r)
+		case PortalServiceUpdateLeadInteractionCommentProcedure:
+			portalServiceUpdateLeadInteractionCommentHandler.ServeHTTP(w, r)
 		case PortalServiceCreateOrEditProjectProcedure:
 			portalServiceCreateOrEditProjectHandler.ServeHTTP(w, r)
 		case PortalServiceSuggestKeywordsAndSourcesProcedure:
@@ -1051,8 +1077,12 @@ func (UnimplementedPortalServiceHandler) UpdateLeadStatus(context.Context, *conn
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("doota.portal.v1.PortalService.UpdateLeadStatus is not implemented"))
 }
 
-func (UnimplementedPortalServiceHandler) UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionStatusRequest]) (*connect.Response[emptypb.Empty], error) {
+func (UnimplementedPortalServiceHandler) UpdateLeadInteractionStatus(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("doota.portal.v1.PortalService.UpdateLeadInteractionStatus is not implemented"))
+}
+
+func (UnimplementedPortalServiceHandler) UpdateLeadInteractionComment(context.Context, *connect.Request[v1.UpdateLeadInteractionRequest]) (*connect.Response[emptypb.Empty], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("doota.portal.v1.PortalService.UpdateLeadInteractionComment is not implemented"))
 }
 
 func (UnimplementedPortalServiceHandler) CreateOrEditProject(context.Context, *connect.Request[v1.CreateProjectRequest]) (*connect.Response[v11.Project], error) {

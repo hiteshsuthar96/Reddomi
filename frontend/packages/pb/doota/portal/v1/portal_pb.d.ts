@@ -273,9 +273,9 @@ export declare type CreateProjectRequest = Message<"doota.portal.v1.CreateProjec
 export declare const CreateProjectRequestSchema: GenMessage<CreateProjectRequest>;
 
 /**
- * @generated from message doota.portal.v1.UpdateLeadInteractionStatusRequest
+ * @generated from message doota.portal.v1.UpdateLeadInteractionRequest
  */
-export declare type UpdateLeadInteractionStatusRequest = Message<"doota.portal.v1.UpdateLeadInteractionStatusRequest"> & {
+export declare type UpdateLeadInteractionRequest = Message<"doota.portal.v1.UpdateLeadInteractionRequest"> & {
   /**
    * @generated from field: doota.core.v1.LeadInteractionStatus status = 1;
    */
@@ -285,13 +285,18 @@ export declare type UpdateLeadInteractionStatusRequest = Message<"doota.portal.v
    * @generated from field: string interaction_id = 2;
    */
   interactionId: string;
+
+  /**
+   * @generated from field: string comment = 3;
+   */
+  comment: string;
 };
 
 /**
- * Describes the message doota.portal.v1.UpdateLeadInteractionStatusRequest.
- * Use `create(UpdateLeadInteractionStatusRequestSchema)` to create a new message.
+ * Describes the message doota.portal.v1.UpdateLeadInteractionRequest.
+ * Use `create(UpdateLeadInteractionRequestSchema)` to create a new message.
  */
-export declare const UpdateLeadInteractionStatusRequestSchema: GenMessage<UpdateLeadInteractionStatusRequest>;
+export declare const UpdateLeadInteractionRequestSchema: GenMessage<UpdateLeadInteractionRequest>;
 
 /**
  * @generated from message doota.portal.v1.UpdateLeadStatusRequest
@@ -1518,7 +1523,15 @@ export declare const PortalService: GenService<{
    */
   updateLeadInteractionStatus: {
     methodKind: "unary";
-    input: typeof UpdateLeadInteractionStatusRequestSchema;
+    input: typeof UpdateLeadInteractionRequestSchema;
+    output: typeof EmptySchema;
+  },
+  /**
+   * @generated from rpc doota.portal.v1.PortalService.UpdateLeadInteractionComment
+   */
+  updateLeadInteractionComment: {
+    methodKind: "unary";
+    input: typeof UpdateLeadInteractionRequestSchema;
     output: typeof EmptySchema;
   },
   /**
