@@ -21,3 +21,12 @@ frontend/extension/chrome/loadlogic-chrome-extension.*.zip
 backend/cmd/doota/doota
 backend/cmd/doota/data/*
 redora-infra/.terraform
+
+# Build artifacts and logs
+backend/redora
+backend/doota
+*.log
+/backend.log
+/frontend.log
+/redora.log
+/redora-spooler.log

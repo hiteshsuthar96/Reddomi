@@ -45,7 +45,7 @@ func (s *SlackNotifier) SendIntegrationRevoked(ctx context.Context, orgID string
 	`, accountName, reason)
 
 	params := &resend.SendEmailRequest{
-		From:    "RedoraAI <leads@alerts.redoraai.com>",
+		From:    "Reddomi <onboarding@resend.dev>",
 		To:      to,
 		Cc:      []string{"shashank@donebyai.team", "adarsh@redoraai.com"},
 		Subject: "⚠️ Integration Revoked",

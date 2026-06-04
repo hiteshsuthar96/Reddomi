@@ -260,7 +260,7 @@ You’ll need three components running:
 Visit:
 
 - `http://localhost:8081` → pgweb (Postgres UI)
-- `http://localhost:3000` → Redora Portal
+- `http://localhost:3000` → Reddomi Portal
 
 ---
 
@@ -277,7 +277,7 @@ Integrations store external service credentials and configuration.
 **Manually insert an integration using tools. Example (CLI):**
 
 ```bash
-doota tools integrations slack_webhook create <org-id> '{"channel":"redora-alerts","webhook":"<slack-url>"}'
+doota tools integrations slack_webhook create <org-id> '{"channel":"reddomi-alerts","webhook":"<slack-url>"}'
 ```
 ---
 

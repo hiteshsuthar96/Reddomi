@@ -168,10 +168,7 @@ func (s *SlackNotifier) SendAutoDMDisabledEmail(ctx context.Context, orgID strin
 `, redditUsername, reason)
 
 	params := &resend.SendEmailRequest{
-		From:    "RedoraAI <leads@alerts.redoraai.com>",
-		To:      to,
-		Cc:      []string{"shashank@donebyai.team", "adarsh@redoraai.com"},
-		Subject: "🚫 Auto DM Disabled",
+		From:    "Reddomi <onboarding@resend.dev>",
 		Html:    htmlBody,
 	}
 
@@ -234,10 +231,7 @@ func (s *SlackNotifier) SendAutoCommentDisabledEmail(ctx context.Context, orgID 
 `, redditUsername, reason)
 
 	params := &resend.SendEmailRequest{
-		From:    "RedoraAI <leads@alerts.redoraai.com>",
-		To:      to,
-		Cc:      []string{"shashank@donebyai.team", "adarsh@redoraai.com"},
-		Subject: "🚫 Auto Commenting Disabled",
+		From:    "Reddomi <onboarding@resend.dev>",
 		Html:    htmlBody,
 	}
 
@@ -370,7 +364,7 @@ func (s *SlackNotifier) SendLeadsSummaryEmail(ctx context.Context, summary LeadS
 	}
 
 	params := &resend.SendEmailRequest{ // Changed to SendEmailRequest from resend.SendEmailRequest for mock
-		From:    "RedoraAI <leads@alerts.redoraai.com>",
+		From:    "Reddomi <onboarding@resend.dev>",
 		To:      to,
 		Subject: subject,
 		Html:    htmlBody,
@@ -424,7 +418,7 @@ func (s *SlackNotifier) SendTrialExpiredEmail(ctx context.Context, orgID string,
 	`, trialDays)
 
 	params := &resend.SendEmailRequest{
-		From:    "RedoraAI <leads@alerts.redoraai.com>",
+		From:    "Reddomi <onboarding@resend.dev>",
 		To:      to,
 		Cc:      []string{"shashank@donebyai.team", "adarsh@redoraai.com"},
 		Subject: "🚫 Your RedoraAI Trial Has Ended — Upgrade to Stay Live",

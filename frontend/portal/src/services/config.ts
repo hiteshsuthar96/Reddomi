@@ -33,15 +33,21 @@ export class ConfigProvider {
   }
 
   async buildConfig(): Promise<Config> {
-    const backendConfig = await this.fetchFromBackend()
+    try {
+      const backendConfig = await this.fetchFromBackend()
 
-    if (backendConfig === null) {
-      throw new Error('No backend configuration found')
+      if (backendConfig === null || backendConfig === undefined) {
+        log.warn('No backend configuration found, using defaults')
+        return this.config
+      }
+
+      log.info('retrieve config', { config: backendConfig })
+      return backendConfig
+    } catch (error) {
+      log.error('Failed to fetch backend config, using defaults', { error })
+      // Return default config instead of crashing
+      return this.config
     }
-
-    log.info('retrieve config', { config: backendConfig })
-
-    return backendConfig
   }
 }
 
