@@ -24,7 +24,7 @@ export const LoginPanel: FC<Props> = ({
   // onPasswordlessStarted,
   onPasswordlessStartError,
   onPasswordlessVerified,
-  // onPasswordlessVerifyError
+  onPasswordlessVerifyError,
 }) => {
   // const [optState, setOPTState] = useState<'start' | 'verify'>('start')
   // const [email, setEmail] = useState('')
@@ -63,12 +63,14 @@ export const LoginPanel: FC<Props> = ({
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
+    const normalizedEmail = email.trim();
+
+    if (!normalizedEmail) {
       setEmailError("Email is required");
       return;
     }
 
-    if (!validateEmail(email)) {
+    if (!validateEmail(normalizedEmail)) {
       setEmailError("Please enter a valid email address");
       return;
     }
@@ -77,18 +79,19 @@ export const LoginPanel: FC<Props> = ({
     setIsEmailLoading(true);
 
     try {
-      // Simulate sending OTP to email
-      await portalClient.passwordlessStart({ email: email });
-      
+      await portalClient.passwordlessStart({ email: normalizedEmail });
+      setEmail(normalizedEmail);
       setShowOtp(true);
       toast({
         title: "OTP sent",
-        description: `Verification code sent to ${email}`,
+        description: `Verification code sent to ${normalizedEmail}`,
       });
     } catch (error) {
+      const message = errorToMessage(error);
+      onPasswordlessStartError(message, error);
       toast({
         title: "Error",
-        description: "Failed to send verification code. Please try again.",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -98,23 +101,21 @@ export const LoginPanel: FC<Props> = ({
 
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (otp.length !== 6) return;
+    const code = otp.trim();
+    if (code.length !== 6) return;
 
     setIsEmailLoading(true);
 
     try {
-      // Simulate OTP verification
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const token = await portalClient.passwordlessVerify({ email: email, code: otp });
+      const token = await portalClient.passwordlessVerify({ email: email.trim(), code });
       onPasswordlessVerified(token);
-      
       navigate.push("/dashboard");
-      
     } catch (error) {
+      const message = errorToMessage(error);
+      onPasswordlessVerifyError(message, error);
       toast({
         title: "Invalid code",
-        description: "Please check your verification code and try again.",
+        description: message,
         variant: "destructive",
       });
     } finally {

@@ -102,7 +102,7 @@ func (a *auth0) initiatePasswordlessFlow(email, ipaddress string) error {
 		Email:        email,
 		Send:         "code",
 		AuthParams: map[string]string{
-			"scope": "openid profile",
+			"scope": "openid profile email",
 		},
 	}
 
@@ -185,7 +185,7 @@ func (a *auth0) verifyPasswordlessFlow(code, email, ipaddress string) (*Auth0Tok
 		Username:     email,
 		OTP:          code,
 		Realm:        "email",
-		Scope:        "openid profile",
+		Scope:        "openid profile email",
 	}
 
 	url := fmt.Sprintf("https://%s/oauth/token", a.domain)

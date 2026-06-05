@@ -2,6 +2,7 @@ package portal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -16,7 +17,7 @@ import (
 
 func (p *Portal) PasswordlessStart(ctx context.Context, c *connect.Request[pbportal.PasswordlessStartRequest]) (*connect.Response[emptypb.Empty], error) {
 	logger := logging.Logger(ctx, p.logger)
-	email := c.Msg.Email
+	email := strings.TrimSpace(c.Msg.Email)
 
 	logger.Info("passwordless start", zap.String("email", email), zap.String("redirect_uri", c.Msg.RedirectUri))
 
@@ -29,7 +30,11 @@ func (p *Portal) PasswordlessStart(ctx context.Context, c *connect.Request[pbpor
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("get client IP: %w", err))
 	}
 
-	if err := p.authUsecase.StartPasswordless(ctx, c.Msg.Email, ip); err != nil {
+	if err := p.authUsecase.StartPasswordless(ctx, email, ip); err != nil {
+		var connectErr *connect.Error
+		if errors.As(err, &connectErr) {
+			return nil, connectErr
+		}
 		return nil, fmt.Errorf("failed to initiate passwordless flow: %w", err)
 	}
 

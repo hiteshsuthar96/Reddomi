@@ -2,6 +2,7 @@ package portal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -13,8 +14,8 @@ import (
 
 func (p *Portal) PasswordlessVerify(ctx context.Context, c *connect.Request[pbportal.PasswordlessStartVerify]) (*connect.Response[pbportal.JWT], error) {
 	logger := logging.Logger(ctx, p.logger)
-	email := c.Msg.Email
-	code := c.Msg.Code
+	email := strings.TrimSpace(c.Msg.Email)
+	code := strings.TrimSpace(c.Msg.Code)
 
 	logger.Info("passwordless verify", zap.String("email", email), zap.String("code", strings.Repeat("*", len(code))))
 
@@ -31,8 +32,12 @@ func (p *Portal) PasswordlessVerify(ctx context.Context, c *connect.Request[pbpo
 		return nil, fmt.Errorf("get client IP: %w", err)
 	}
 
-	jwt, err := p.authUsecase.VerifyPasswordless(ctx, c.Msg.Email, c.Msg.Code, ip)
+	jwt, err := p.authUsecase.VerifyPasswordless(ctx, email, code, ip)
 	if err != nil {
+		var connectErr *connect.Error
+		if errors.As(err, &connectErr) {
+			return nil, connectErr
+		}
 		return nil, fmt.Errorf("failed to verify passwordless flow: %w", err)
 	}
 	return connect.NewResponse(jwt), nil
