@@ -259,12 +259,100 @@ You’ll need three components running:
 
 Visit:
 
-- `http://localhost:8081` → pgweb (Postgres UI)
-- `http://localhost:3000` → Reddomi Portal
+- `http://localhost:8081` - pgweb (Postgres UI)
+- `http://localhost:3000` - Reddomi Portal
 
 ---
 
-## 🔌 Integrations
+## Exact working startup (tested)
+
+1. Copy example environment values:
+
+```bash
+cp .envrc.example .envrc
+```
+
+2. Load environment variables:
+
+```bash
+direnv allow
+```
+
+3. Start local dependencies:
+
+```bash
+./devel/up.sh
+```
+
+4. Start the app using the built-in startup script:
+
+```bash
+./run-local.sh
+```
+
+This script does the following:
+
+- sources `.envrc` if present
+- exports `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_APP_URL` defaults
+- starts Docker services for Postgres and Redis
+- builds the backend and starts it on port `8787`
+- starts the frontend on port `3000`
+
+If the frontend or backend fails to start:
+
+- make sure `docker`, `go`, and `pnpm` are installed
+- make sure port `3000` is free
+- make sure `.envrc` contains valid Auth0 and Reddit secrets for the portal login flow
+
+### Codespaces-specific notes
+
+If you open this repo in a new GitHub Codespace, do this before visiting the app:
+
+```bash
+gh codespace ports visibility 3000:public 8787:public
+```
+
+Then open the public Codespaces app URL for port `3000`, for example:
+
+```text
+https://<your-codespace-id>-3000.app.github.dev/auth/login
+```
+
+The frontend already supports runtime fallback for the Codespaces API URL in:
+
+- `frontend/portal/src/services/grpc.ts`
+- `frontend/portal/src/services/config.ts`
+
+So if ports `3000` and `8787` are public, the frontend will resolve the backend automatically.
+
+### If you want to avoid repeating the same errors
+
+Always start from the repo root and use:
+
+```bash
+./run-local.sh
+```
+
+If you need the exact file set for another AI or a new collaborator, point them here first:
+
+- `.envrc.example` — required environment variables and local defaults
+- `run-local.sh` — the full local startup flow
+- `frontend/portal/src/services/grpc.ts` — API endpoint resolution logic
+- `frontend/portal/src/services/config.ts` — portal and API URL configuration
+- `frontend/portal/src/components/pages/Login.tsx` — OTP login UI and flow
+- `backend/portal/handler_portal_passwordless_start.go` — passwordless start handler
+- `backend/portal/handler_portal_passwordless_verify.go` — passwordless verify handler
+
+If a new AI is taking over the repo, tell it:
+
+- "Run `./run-local.sh` from the repo root after copying `.envrc.example` to `.envrc` and setting secrets."
+- "In Codespaces, expose ports `3000` and `8787` publicly."
+- "Check `frontend/portal/src/services/grpc.ts` for runtime API resolution."
+- "Check `backend/portal/handler_portal_passwordless_start.go` and `...verify.go` for the OTP login route."
+
+---
+
+## �🔌 Integrations
 
 Integrations store external service credentials and configuration.
 
