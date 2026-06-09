@@ -405,6 +405,12 @@ func (r RedditBrowserAutomation) WaitAndGetCookies(ctx context.Context, cdp *CDP
 	pageContext := browser.Contexts()[0]
 	page := pageContext.Pages()[0]
 
+	// Navigate to Reddit login page
+	r.logger.Info("navigating to reddit login page")
+	if _, err := page.Goto(loginURL, playwright.PageGotoOptions{Timeout: playwright.Float(10000)}); err != nil {
+		return nil, fmt.Errorf("navigation to login page failed: %w", err)
+	}
+
 	ticker := time.NewTicker(2 * time.Second)
 	defer ticker.Stop()
 
@@ -414,6 +420,15 @@ func (r RedditBrowserAutomation) WaitAndGetCookies(ctx context.Context, cdp *CDP
 			return nil, fmt.Errorf("login timed out or cancelled: %w", ctx.Err())
 		case <-ticker.C:
 			currentURL := page.URL()
+			
+			// Check for security/error messages
+			errorContent, _ := page.TextContent("body")
+			if strings.Contains(errorContent, "blocked by network security") || 
+			   strings.Contains(errorContent, "Please try to login") ||
+			   strings.Contains(errorContent, "something went wrong") {
+				return nil, fmt.Errorf("reddit security block detected: %s", errorContent)
+			}
+			
 			if alert, _ := page.QuerySelector("faceplate-banner[appearance='error']"); alert != nil {
 				msg, _ := alert.GetAttribute("msg")
 				if msg != "" {

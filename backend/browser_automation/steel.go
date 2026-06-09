@@ -59,6 +59,18 @@ func (r steelBrowserClient) GetCDPInfo(ctx context.Context, input CDPInput) (*CD
 		}
 		// Steel hobby plan does not support Steel proxies, so we omit useProxy here.
 		payload.StealthConfig.HumanizeInteractions = true
+		payload.StealthConfig.SkipFingerprintInjection = false
+		// Note: SolveCaptcha not supported on hobby plan
+		payload.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+		if input.UseProxy && input.Alpha2CountryCode != "" {
+			payload.UseProxy = &struct {
+				GeoLocation struct {
+					Country string `json:"country"`
+				} `json:"geolocation"`
+			}{}
+			payload.UseProxy.GeoLocation.Country = input.GetCountryCode()
+		}
 
 		jsonData, err := json.Marshal(payload)
 		if err != nil {
